@@ -36,7 +36,7 @@ func main() {
 
 	cfg, err := loadConfig("database.hcl")
 	if err != nil {
-		log.Fatalf("error [%s] when loading coonfig file", err)
+		log.Fatalf("error [%s] when loading config file", err)
 	}
 
 	var dbname, scriptsListFile string

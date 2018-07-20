@@ -82,7 +82,7 @@ func (se *Executor) ExecuteScript(filename string) error {
 		result, err := se.dbCon.Exec(line)
 		if err != nil {
 			if se.progressInfo != nil {
-				se.progressInfo.StatementExecutionFailed(line, fmt.Errorf("error [%s]", err))
+				se.progressInfo.StatementExecutionFailed(line, fmt.Errorf("[%s]", err))
 			}
 
 			return fmt.Errorf("script execution failed")

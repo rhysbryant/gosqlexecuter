@@ -45,5 +45,5 @@ func (c consoleProgressOutput) StatementExecutionSucceeded(duration time.Duratio
 }
 
 func (c consoleProgressOutput) StatementExecutionFailed(statement string, err error) {
-	fmt.Fprintf(os.Stderr, "error %s \n", err)
+	fmt.Fprintf(os.Stderr, "Driver returned an error: %s \n", err)
 }
