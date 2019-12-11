@@ -23,6 +23,7 @@ package script
 import (
 	"database/sql"
 	"fmt"
+	"io"
 	"os"
 	"path/filepath"
 	"time"
@@ -69,7 +70,10 @@ func (se *Executor) ExecuteScript(filename string) error {
 	for {
 		line, err := s.NextStatement()
 		if err != nil {
-			break
+			if err == io.EOF {
+				break
+			}
+			return err
 		}
 		if line == "" {
 			continue

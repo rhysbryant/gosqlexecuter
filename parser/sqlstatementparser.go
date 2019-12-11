@@ -21,7 +21,13 @@ package parser
 **/
 import (
 	"bytes"
+	"errors"
 	"io"
+)
+
+var (
+	//ErrSyntex returned when there is tailing text
+	ErrSyntex = errors.New("Syntax Error: unterminated statement, missing ;?")
 )
 
 //SQLStatementParser struct
@@ -144,6 +150,9 @@ func (s *SQLStatementParser) NextStatement() (string, error) {
 		}
 		s.offset = i
 		if err = s.loadBuffer(); err != nil {
+			if err == io.EOF && buf.Len() > 0 {
+				return "", ErrSyntex
+			}
 			return "", err
 		}
 		s.offset = 0

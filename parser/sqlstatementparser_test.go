@@ -101,3 +101,17 @@ func TestParsermultiLineStatement(t *testing.T) {
 	assert.Equal(t, "update sometable\n\tset n=9\n\twhere m=7", r)
 
 }
+
+func TestParseTrailingText(t *testing.T) {
+	stmt := `
+	update sometable
+	set n=9
+	where m=7
+	`
+	b := bytes.NewBufferString(stmt)
+	s := NewSQLStatementParser(b)
+	_, err := s.NextStatement()
+	_, err = s.NextStatement()
+	assert.Error(t, err, ErrSyntex)
+
+}
